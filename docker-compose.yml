@@ -1,0 +1,25 @@
+
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: online_school_db
+    restart: always
+    environment:
+      POSTGRES_USER: de_user
+      POSTGRES_PASSWORD: de_password123
+      POSTGRES_DB: online_school
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+    networks:
+      - de_network
+
+volumes:
+  postgres_data:
+
+networks:
+  de_network:
+    driver: bridge
